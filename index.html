@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>E-Jeep Reservation System</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="style.css" rel="stylesheet" />
+</head>
+<body>
+  <div id="loadingOverlay" class="loading-overlay">
+    <div class="spinner"></div>
+  </div>
+  <div id="confirmationModal" class="modal">
+    <div class="modal-content">
+      <span id="closeModal" class="close-btn">&times;</span>
+      <div class="modal-icon"></div>
+      <h2>Booking Confirmed!</h2>
+      <p id="modalMessage"></p>
+      <button id="modalOkBtn" class="btn primary-btn">OK</button>
+    </div>
+  </div>
+
+  <!-- Header / Navbar -->
+  <header class="main-header">
+    <div class="nav-container">
+      <div class="logo">
+        <span class="logo-icon">🚐</span>
+        <span class="logo-text">E-Jeep Online Reservation</span>
+        <span id="premiumBadge" class="premium-badge" style="display: none;">⭐ Premium User</span>
+      </div>
+      <nav>
+        <button id="menuToggle" class="menu-toggle">
+          <span></span><span></span><span></span>
+        </button>
+        <ul id="navLinks" class="nav-links">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#plans">Plans</a></li>
+          <li><a href="#book">Book</a></li>
+          <li><a href="#reservations">My Reservations</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main>
+    <!-- Hero Section -->
+    <section id="home" class="hero-section">
+      <div class="hero-inner">
+        <h1>Fast, Eco-Friendly E-Jeep Reservation</h1>
+        <p class="hero-subtitle">Book your ride anytime, anywhere with our smart reservation system.</p>
+        <div class="hero-buttons">
+          <button id="heroBookBtn" class="btn primary-btn">Book Now</button>
+          <button id="viewPlansBtn" class="btn secondary-btn">View Plans</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Why Choose Our E-Jeep Section -->
+    <section class="features-section">
+      <div class="section-header">
+        <h2>Why Choose Our E-Jeep</h2>
+      </div>
+      <div class="features-container">
+        <div class="feature card">
+          <div class="feature-icon">🚗</div>
+          <h3>Affordable</h3>
+          <p>Lower transportation cost compared to traditional rides.</p>
+        </div>
+        <div class="feature card">
+          <div class="feature-icon">🌱</div>
+          <h3>Environmentally Friendly</h3>
+          <p>100% electric-powered transportation reducing carbon emissions.</p>
+        </div>
+        <div class="feature card">
+          <div class="feature-icon">⏱</div>
+          <h3>Convenient</h3>
+          <p>Easy online booking with instant confirmation.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Subscription Plans Section -->
+    <section id="plans" class="plans-section">
+      <div class="section-header">
+        <h2>Subscription Plans</h2>
+        <p>Choose the plan that best fits your needs</p>
+      </div>
+      <div class="plans-container">
+        <div class="plan-card card">
+          <div class="plan-header">
+            <div class="plan-icon">🆓</div>
+            <h3>Free Plan</h3>
+          </div>
+          <ul class="plan-features">
+            <li>Basic reservation access</li>
+            <li>Standard route selection</li>
+            <li>Max 2 bookings per day</li>
+            <li>No priority booking</li>
+            <li>Standard customer support</li>
+          </ul>
+          <button id="selectFreeBtn" class="btn plan-btn">Use Free Plan</button>
+        </div>
+        <div class="plan-card card premium-plan">
+          <div class="plan-badge">Recommended</div>
+          <div class="plan-header">
+            <div class="plan-icon">⭐</div>
+            <h3>Premium Plan</h3>
+          </div>
+          <ul class="plan-features">
+            <li>Unlimited bookings</li>
+            <li>Priority reservation</li>
+            <li>Discounted fares (5–10%)</li>
+            <li>Early access to new routes</li>
+            <li>Premium customer support</li>
+            <li>Booking history access</li>
+          </ul>
+          <button id="selectPremiumBtn" class="btn plan-btn primary-btn">Upgrade to Premium</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Booking Section -->
+    <section id="book" class="booking-section">
+      <div class="section-header">
+        <h2>Book Your E-Jeep Ride</h2>
+        <p>Fill in the details below to reserve your seat.</p>
+        <div id="bookingPremiumBadge" class="booking-premium-badge" style="display: none;">
+          ⭐ Premium User: You're getting 5-10% discount on all fares!
+        </div>
+      </div>
+      <div class="booking-layout">
+        <!-- Booking Form Card -->
+        <div class="card booking-card">
+          <form id="bookingForm" novalidate>
+            <div class="form-group">
+              <label for="fullName">Full Name</label>
+              <input type="text" id="fullName" name="fullName" placeholder="Enter your full name" required />
+              <small class="error-msg" data-for="fullName"></small>
+            </div>
+
+            <div class="form-group">
+              <label for="contactNumber">Contact Number</label>
+              <input type="tel" id="contactNumber" name="contactNumber" placeholder="09XXXXXXXXX" required />
+              <small class="error-msg" data-for="contactNumber"></small>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="travelDate">Travel Date</label>
+                <input type="date" id="travelDate" name="travelDate" required />
+                <small class="error-msg" data-for="travelDate"></small>
+              </div>
+              <div class="form-group">
+                <label for="travelTime">Travel Time</label>
+                <input type="time" id="travelTime" name="travelTime" required />
+                <small class="error-msg" data-for="travelTime"></small>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="route">Route</label>
+              <select id="route" name="route" required>
+                <option value="">Select Route</option>
+                <option value="city-center">City Center Loop</option>
+                <option value="university">University Route</option>
+                <option value="business-district">Business District</option>
+                <option value="suburb">Suburb Express</option>
+              </select>
+              <small class="error-msg" data-for="route"></small>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="seats">Number of Seats</label>
+                <input type="number" id="seats" name="seats" min="1" max="10" value="1" required />
+                <small class="error-msg" data-for="seats"></small>
+              </div>
+              <div class="form-group fare-display">
+                <label>Estimated Fare</label>
+                <div id="fareAmount" class="fare-amount">₱0.00</div>
+                <small class="fare-note">Auto-calculated based on route & seats</small>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="notes">Additional Notes (Optional)</label>
+              <textarea id="notes" name="notes" placeholder="Pickup details or special request"></textarea>
+            </div>
+
+            <button type="submit" class="btn primary-btn full-width">Confirm Reservation</button>
+          </form>
+        </div>
+
+        <!-- Fare Info / Tips Card -->
+        <aside class="card info-card">
+          <h3>Fare Guide</h3>
+          <ul class="fare-list">
+            <li><span>City Center Loop</span><span>₱20 / seat</span></li>
+            <li><span>University Route</span><span>₱15 / seat</span></li>
+            <li><span>Business District</span><span>₱25 / seat</span></li>
+            <li><span>Suburb Express</span><span>₱30 / seat</span></li>
+          </ul>
+          <p class="tip-text">
+            Final fare may vary slightly depending on operational adjustments. Please arrive 10 minutes before
+            your scheduled time.
+          </p>
+        </aside>
+      </div>
+    </section>
+
+    <!-- Reservations List Section -->
+    <section id="reservations" class="reservations-section">
+      <div class="section-header">
+        <h2>My Reservations</h2>
+        <p>View and manage your existing E-Jeep reservations.</p>
+      </div>
+
+      <div id="noReservations" class="no-reservations card">
+        You have no reservations yet. Book your first eco-friendly ride above.
+      </div>
+
+      <div id="reservationsContainer" class="reservations-container">
+        <!-- Reservation cards will be injected here by JavaScript -->
+      </div>
+    </section>
+  </main>
+
+  <footer class="main-footer">
+    <p>&copy; <span id="year"></span> E-Jeep Reservation System. All rights reserved.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
